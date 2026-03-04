@@ -223,6 +223,30 @@ document.getElementById("reportForm").addEventListener("submit", function(e){
 
   setTimeout(()=>conf.style.display="none",4000);
 });
+<script>
+document.querySelector("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = {
+    reporter: document.getElementById("reporter").value,
+    game: document.getElementById("game").value,
+    severity: document.getElementById("severity").value,
+    description: document.getElementById("description").value
+  };
+
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbzGekw0aPlnWXcDEkzd5nKuiad2n-Nzz7wu8AplUMC8FrZFPWWwnPDJ5NaSjCjtCEFT/exec", {
+      method: "POST",
+      body: JSON.stringify(formData)
+    });
+
+    alert("Report submitted successfully!");
+    this.reset();
+  } catch (error) {
+    alert("Something went wrong. Try again.");
+    console.error(error);
+  }
+});
 </script>
 
 </body>
